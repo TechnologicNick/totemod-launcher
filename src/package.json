@@ -1,0 +1,18 @@
+{
+  "name": "totemod-launcher",
+  "productName": "totemod-launcher",
+  "version": "0.0.1",
+  "description": "An Electron app that can build, merge and inject Scrap Mechanic mods",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "TechnologicNick",
+    "email": "technologicnick@gmail.com",
+    "url": "https://github.com/technologicnick"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
