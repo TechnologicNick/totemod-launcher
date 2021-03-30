@@ -1,6 +1,6 @@
 {
   "name": "totemod-launcher",
-  "productName": "totemod-launcher",
+  "productName": "TotemodLauncher",
   "version": "0.0.1",
   "description": "An Electron app that can build, merge and inject Scrap Mechanic mods",
   "main": "./main.prod.js",

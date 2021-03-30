@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import './App.scss';
 
 // Page components
 import PageMods from './PageMods';
