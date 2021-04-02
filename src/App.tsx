@@ -1,12 +1,12 @@
 import React from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import { Sidebar } from './Sidebar';
+import { Sidebar } from './Components/Sidebar';
 import './App.scss';
 // import 'halfmoon/css/halfmoon-variables.min.css';
 // import 'halfmoon';
 
 // Page components
-import PageMods from './PageMods';
+import PageMods from './Pages/PageMods';
 
 export interface Page {
   category: string;
