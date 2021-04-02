@@ -5,17 +5,24 @@
     <title>Hello Electron React!</title>
     <script>
       (() => {
-        if (process?.env?.NODE_ENV !== 'development') {
+        const addStylesheet = (href) => {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
-          link.href = './dist/style.css';
+          link.href = href;
           // HACK: Writing the script path should be done with webpack
           document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        console.log(process?.env?.NODE_ENV);
+        if (process?.env?.NODE_ENV === 'development') {
+          addStylesheet('../node_modules/halfmoon/css/halfmoon-variables.min.css');
+        } else {
+          addStylesheet('./dist/style.css');
         }
       })();
     </script>
   </head>
-  <body>
+  <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true" data-set-preferred-mode-onload="true">
     <div id="root"></div>
     <script>
       const scripts = [];
