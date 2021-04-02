@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 // import SidebarItem from './SidebarItem';
-import { Page } from './App';
+import { Page } from '../App';
 
 export function Sidebar(props: { pages: Page[] }) {
     return (
