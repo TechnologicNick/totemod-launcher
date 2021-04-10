@@ -53,7 +53,7 @@ export default class ModSearch extends Component {
         const filteredMods = Object.values(WorkshopModManager.mods)
             .filter(mod => this.props.includeFake || !mod.isFake)
             .filter(mod => Object.values(mod.description).find(value => {
-                return value?.toString().includes(lowercasedFilter);
+                return value?.toString().toLowerCase().includes(lowercasedFilter);
             }));
 
         return (
