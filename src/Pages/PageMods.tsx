@@ -1,5 +1,5 @@
 import React from 'react';
-import ModSearch from './ModSearch';
+import ModSearch from '../Components/ModSearch';
 
 export default function PageMods() {
     return (

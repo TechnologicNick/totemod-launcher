@@ -16,6 +16,7 @@
         console.log(process?.env?.NODE_ENV);
         if (process?.env?.NODE_ENV === 'development') {
           addStylesheet('../node_modules/halfmoon/css/halfmoon-variables.min.css');
+          addStylesheet('./dist/style.css');
         } else {
           addStylesheet('./dist/style.css');
         }
