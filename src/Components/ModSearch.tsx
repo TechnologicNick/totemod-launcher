@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
 import halfmoon from 'halfmoon';
 import ModCard from './ModCard';
-import './ModSearch.scss';
 
 export default class ModSearch extends Component {
     public static defaultProps = {
@@ -58,9 +57,9 @@ export default class ModSearch extends Component {
             }));
 
         return (
-            <div className="ModSearch container-fluid">
-                <div className="ModSearch-content">
-                    <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
+            <div className="container-fluid">
+                <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
+                <div>
                     {filteredMods.map(mod => <ModCard key={mod.description.localId} mod={mod}/>)}
                 </div>
             </div>
