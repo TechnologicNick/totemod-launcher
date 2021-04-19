@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
 import halfmoon from 'halfmoon';
-import ModCard from './ModCard';
+import ModSearchRow from './ModSearchRow';
 
 export default class ModSearch extends Component {
     public static defaultProps = {
@@ -59,9 +59,17 @@ export default class ModSearch extends Component {
         return (
             <div className="container-fluid">
                 <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
-                <div>
-                    {filteredMods.map(mod => <ModCard key={mod.description.localId} mod={mod}/>)}
-                </div>
+                <table className="table" style={{ tableLayout: "fixed" }}>
+                    <thead>
+                        <tr>
+                            <th style={{ width: "calc(10rem * 16/9)" }}></th> {/* Set the width of the image column */}
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>)}
+                    </tbody>
+                </table>
             </div>
         )
     }
