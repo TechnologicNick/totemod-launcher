@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { WorkshopMod } from 'scrap-mechanic-common';
+import './ModSearchRow.global.scss';
 
 export default class ModSearchRow extends Component {
     props!: {mod: WorkshopMod};
@@ -7,14 +8,14 @@ export default class ModSearchRow extends Component {
     render() {
         return (
             <tr>
-                <td className="p-0 w-25"> {/* Setting the width for some reason stops the cell from expanding */}
+                <td className="p-0">
                     <img src={this.props.mod.preview} className="h-100 rounded" />
                 </td>
                 <td>
                     <h2 className="d-inline-block mr-20 mb-5 content-title">
                         {this.props.mod.description.name}
                     </h2>
-                    <span className="d-inline-block text-muted" style={{ textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap", width: "100%" }}>
+                    <span className="description d-inline-block text-muted">
                         {this.props.mod.description.description}
                     </span>
                     <div>

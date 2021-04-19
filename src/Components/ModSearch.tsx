@@ -57,7 +57,7 @@ export default class ModSearch extends Component {
             }));
 
         return (
-            <div className="container-fluid">
+            <div className="ModSearch container-fluid">
                 <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
                 <table className="table" style={{ tableLayout: "fixed" }}>
                     <thead>
