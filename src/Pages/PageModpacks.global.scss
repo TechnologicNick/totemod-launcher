@@ -1,0 +1,4 @@
+.center-font-vertically {
+    display: inline-block;
+    transform: translateY(calc(((-1em / 1.5) + 1ex) / 2));
+}

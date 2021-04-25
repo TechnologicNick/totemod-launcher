@@ -7,6 +7,7 @@ import './App.scss';
 
 // Page components
 import PageMods from './Pages/PageMods';
+import PageModpacks from './Pages/PageModpacks';
 
 export interface Page {
   category: string;
@@ -17,7 +18,7 @@ export interface Page {
 
 export const pages: Page[] = [
   { category: "Installed", path: "/mods", displayName: "Mods", component: <PageMods /> },
-  { category: "Installed", path: "/modpacks", displayName: "Modpacks" },
+  { category: "Installed", path: "/modpacks", displayName: "Modpacks", component: <PageModpacks /> },
   { category: "Mod making", path: "/local-mods", displayName: "Local mods" },
 ];
 
