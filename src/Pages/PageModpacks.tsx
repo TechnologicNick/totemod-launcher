@@ -2,9 +2,10 @@ import React from 'react';
 import path from 'path';
 import halfmoon from 'halfmoon';
 import { useForm } from 'react-hook-form';
-import { PathHelper } from 'scrap-mechanic-common';
+import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
 import { Core, ModpackManager } from 'totemod-core';
 import './PageModpacks.global.scss';
+import ModpackCard from '../Components/ModpackCard';
 
 const toggleAddModpack = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,15 +29,21 @@ export default function PageModpacks() {
     if (!PathHelper.USER_DIR) PathHelper.findUserDir();
     if (!Core.isInitialised()) Core.setModpacksDirectory(path.join(PathHelper.USER_DIR, "Modpacks"));
 
+    if (Object.keys(ModpackManager.modpacks).length === 0) ModpackManager.reloadModpacks();
+
     return (
         <>
             <div className="content">
-                <div>
+                <div className="clearfix">
                     <h2 className="float-left d-block-inline content-title">
                         Installed modpacks
                     </h2>
                     {/* <Link to="#modal-add-modpack" className="float-right d-block-inline btn btn-square btn-primary rounded-circle">+</Link> */}
                     <button onClick={ toggleAddModpack } className="float-right d-block-inline btn btn-square btn-primary rounded-circle"><span className="center-font-vertically">+</span></button>
+                </div>
+                
+                <div className="border-top" style={{ paddingBlock: "var(--content-and-card-spacing)", display: "grid", counterReset: "grid-items", columnGap: "var(--content-and-card-spacing)", rowGap: "var(--content-and-card-spacing)", gridTemplateColumns: "repeat(auto-fill, minmax(30rem, 1fr))" }}>
+                    {Object.values(ModpackManager.modpacks).map(modpack => <ModpackCard key={modpack.config.localId} modpack={modpack}/>)}
                 </div>
             </div>
 
@@ -44,9 +51,6 @@ export default function PageModpacks() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <a href="#" onClick={ toggleAddModpack } className="close" role="button" aria-label="Close" style={{ left: "calc(1rem + var(--sidebar-width))" }}>
-                            {/* <span style={{ fontSize: "1.5rem" }}>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </span> */}
                             <span className="center-font-vertically">&times;</span>
                         </a>
                         <h5 className="modal-title">Create new modpack</h5>
