@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
-import halfmoon from 'halfmoon';
+import { WorkshopModManager } from 'scrap-mechanic-common';
+import Settings from '../settings';
 import ModSearchRow from './ModSearchRow';
 
 export default class ModSearch extends Component {
@@ -20,31 +20,13 @@ export default class ModSearch extends Component {
 
     render() {
 
-        if (!PathHelper.USER_MODS_DIR) {
-            if (!PathHelper.findUserDir()) {
-                halfmoon.initStickyAlert({
-                    content: "Unable to find user directory.",
-                    title: "Warning while loading mods",
-                    alertType: "alert-secondary", // Optional, type of the alert, default: "", must be "alert-primary" || "alert-success" || "alert-secondary" || "alert-danger"
-                });
+        if (Settings.isSetup === undefined) {
+            if (!Settings.checkSetup()) {
+                Settings.setup().then(() => this.forceUpdate());
             }
         }
 
-        if (!PathHelper.INSTALLATION_DIR) {
-            PathHelper.findSMInstallDir().then(found => {
-                if (found) {
-                    PathHelper.updatePaths();
-                    WorkshopModManager.reloadMods(false);
-                    this.forceUpdate();
-                } else {
-                    halfmoon.initStickyAlert({
-                        content: "Unable to find Scrap Mechanic installation. Select it manually in the settings.",
-                        title: "Warning while loading mods",
-                        alertType: "alert-secondary", // Optional, type of the alert, default: "", must be "alert-primary" || "alert-success" || "alert-secondary" || "alert-danger"
-                    });
-                }
-            });
-        } else if(Object.keys(WorkshopModManager.mods).length === 0){
+        if (Settings.isSetup && Object.keys(WorkshopModManager.mods).length === 0){
             WorkshopModManager.reloadMods(false);
         }
 

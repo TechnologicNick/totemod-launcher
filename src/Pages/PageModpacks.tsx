@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
 import { Core, ModpackManager } from 'totemod-core';
 import './PageModpacks.global.scss';
-import ModpackCard from '../Components/ModpackCard';
+import ModpackDisplay from '../Components/ModpackDisplay';
 
 const toggleAddModpack = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -25,12 +25,6 @@ export default function PageModpacks() {
         ModpackManager.createModpack(data.name, data.description);
     }
 
-    // TODO: Do this somewhere else
-    if (!PathHelper.USER_DIR) PathHelper.findUserDir();
-    if (!Core.isInitialised()) Core.setModpacksDirectory(path.join(PathHelper.USER_DIR, "Modpacks"));
-
-    if (Object.keys(ModpackManager.modpacks).length === 0) ModpackManager.reloadModpacks();
-
     return (
         <>
             <div className="content">
@@ -42,9 +36,7 @@ export default function PageModpacks() {
                     <button onClick={ toggleAddModpack } className="float-right d-block-inline btn btn-square btn-primary rounded-circle"><span className="center-font-vertically">+</span></button>
                 </div>
                 
-                <div className="border-top" style={{ paddingBlock: "var(--content-and-card-spacing)", display: "grid", counterReset: "grid-items", columnGap: "var(--content-and-card-spacing)", rowGap: "var(--content-and-card-spacing)", gridTemplateColumns: "repeat(auto-fill, minmax(30rem, 1fr))" }}>
-                    {Object.values(ModpackManager.modpacks).map(modpack => <ModpackCard key={modpack.config.localId} modpack={modpack}/>)}
-                </div>
+                <ModpackDisplay />
             </div>
 
             <div className="modal" id={`modal-add-modpack`} tabIndex={-1} role="dialog">
