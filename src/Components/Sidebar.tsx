@@ -19,7 +19,7 @@ export function Sidebar(props: { pages: Page[] }) {
                   let out: JSX.Element[] = [];
                   let currentCategory: string = "";
 
-                  props.pages.forEach((page: Page, index: number) => {
+                  props.pages.filter(page => page.sidebar).forEach((page: Page, index: number) => {
                     const si = <SidebarItem key={page.path} path={page.path} displayName={page.displayName} />;
 
                     if (currentCategory !== page.category) {

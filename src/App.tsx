@@ -10,16 +10,21 @@ import PageMods from './Pages/PageMods';
 import PageModpacks from './Pages/PageModpacks';
 
 export interface Page {
+  sidebar: boolean;
   category: string;
   path: string;
   displayName: string;
-  component?: any;
+  component?: JSX.Element;
 }
 
 export const pages: Page[] = [
-  { category: "Installed", path: "/mods", displayName: "Mods", component: <PageMods /> },
-  { category: "Installed", path: "/modpacks", displayName: "Modpacks", component: <PageModpacks /> },
-  { category: "Mod making", path: "/local-mods", displayName: "Local mods" },
+  { sidebar: true, category: "Installed", path: "/mods", displayName: "Mods", component: <PageMods /> },
+
+  { sidebar: false, category: "Installed", path: "/modpacks/edit/config", displayName: "Modpacks > Edit > Config", component: <>{"Modpacks > Edit > Config"}</> },
+  { sidebar: false, category: "Installed", path: "/modpacks/edit/mods", displayName: "Modpacks > Edit > Mods", component: <>{"Modpacks > Edit > Mods"}</> },
+  { sidebar: true, category: "Installed", path: "/modpacks", displayName: "Modpacks", component: <PageModpacks /> },
+  
+  { sidebar: true, category: "Mod making", path: "/local-mods", displayName: "Local mods" },
 ];
 
 export function App() {

@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PathHelper } from 'scrap-mechanic-common';
 import { Modpack } from 'totemod-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faShapes } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faShapes, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 enum EButtonState {
     UNKNOWN,
@@ -57,6 +58,20 @@ export default class ModCard extends React.Component {
 
     async componentDidMount() {
         await this.updateButtonState();
+    }
+
+    dropdownButton = () => {
+        return (
+            <div className="dropdown with-arrow float-right">
+                <button className="btn btn-square" data-toggle="dropdown" type="button" id={`dropdown-${this.props.modpack.config.localId}`} aria-haspopup="true" aria-expanded="false">
+                    <FontAwesomeIcon icon={ faEllipsisH }/>
+                </button>
+                <div className="dropdown-menu dropdown-menu-right" aria-labelledby={`dropdown-${this.props.modpack.config.localId}`}>
+                    <Link to="/modpacks/edit/config" className="dropdown-item">Edit config</Link>
+                    <Link to="/modpacks/edit/mods" className="dropdown-item">Edit mods</Link>
+                </div>
+            </div>
+        )
     }
 
     modpackButton = () => {
@@ -151,6 +166,7 @@ export default class ModCard extends React.Component {
                     <div className="content">
                         <h2 className="content-title">
                             {this.props.modpack.config.name}
+                            { this.dropdownButton() }
                         </h2>
                         <p className="text-muted" style={{ overflowWrap: "break-word" }}>
                             {this.props.modpack.config.description}
