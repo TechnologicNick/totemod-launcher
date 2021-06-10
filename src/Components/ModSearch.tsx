@@ -44,7 +44,7 @@ export default class ModSearch extends Component {
                 <table className="table" style={{ tableLayout: "fixed" }}>
                     <thead>
                         <tr>
-                            <th style={{ width: "calc(10rem * 16/9)" }}></th> {/* Set the width of the image column */}
+                            <th style={{ width: "calc(10rem * 16/9)" }}></th>{/* Set the width of the image column */}
                             <th></th>
                         </tr>
                     </thead>
