@@ -8,6 +8,7 @@ import './App.scss';
 // Page components
 import PageMods from './Pages/PageMods';
 import PageModpacks from './Pages/PageModpacks';
+import PageModpacksEditMods from './Pages/PageModpacksEditMods';
 
 export interface Page {
   sidebar: boolean;
@@ -21,7 +22,7 @@ export const pages: Page[] = [
   { sidebar: true, category: "Installed", path: "/mods", displayName: "Mods", component: <PageMods /> },
 
   { sidebar: false, category: "Installed", path: "/modpacks/edit/config", displayName: "Modpacks > Edit > Config", component: <>{"Modpacks > Edit > Config"}</> },
-  { sidebar: false, category: "Installed", path: "/modpacks/edit/mods", displayName: "Modpacks > Edit > Mods", component: <>{"Modpacks > Edit > Mods"}</> },
+  { sidebar: false, category: "Installed", path: "/modpacks/edit/mods", displayName: "Modpacks > Edit > Mods", component: <PageModpacksEditMods /> },
   { sidebar: true, category: "Installed", path: "/modpacks", displayName: "Modpacks", component: <PageModpacks /> },
   
   { sidebar: true, category: "Mod making", path: "/local-mods", displayName: "Local mods" },

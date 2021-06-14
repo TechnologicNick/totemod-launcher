@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
+import { DraggableProvided } from 'react-beautiful-dnd';
 import { WorkshopMod } from 'scrap-mechanic-common';
 import './ModSearchRow.global.scss';
 
 export default class ModSearchRow extends Component {
-    props!: {mod: WorkshopMod};
+    props!: {
+        mod: WorkshopMod,
+        draggableProvided?: DraggableProvided
+    };
 
     render() {
+        const provided = this.props.draggableProvided;
+
         return (
-            <tr>
+            <tr
+                ref={provided?.innerRef}
+                {...provided?.draggableProps}
+                {...provided?.dragHandleProps}
+            >
                 <td className="p-0">
                     <img src={this.props.mod.preview} className="h-100 rounded" />
                 </td>

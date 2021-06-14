@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
-import { WorkshopModManager } from 'scrap-mechanic-common';
+import React, { Component, ReactElement } from 'react';
+import { WorkshopMod, WorkshopModManager } from 'scrap-mechanic-common';
 import Settings from '../settings';
 import ModSearchRow from './ModSearchRow';
+import ConditionalWrap from 'conditional-wrap';
+import { Draggable, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
 
 export default class ModSearch extends Component {
     public static defaultProps = {
-        includeFake: false
+        includeFake: false,
+        droppableId: undefined,
+        mods: undefined
     }
 
-    props!: { includeFake: boolean; };
+    props!: {
+        includeFake: boolean,
+        droppableId?: string,
+        mods: WorkshopMod[]
+    };
 
     state = {
         filter: ""
@@ -30,9 +38,11 @@ export default class ModSearch extends Component {
             WorkshopModManager.reloadMods(false);
         }
 
+        const mods = this.props.mods ?? Object.values(WorkshopModManager.mods)
+
         const { filter } = this.state;
         const lowercasedFilter = filter.toLowerCase();
-        const filteredMods = Object.values(WorkshopModManager.mods)
+        const filteredMods = mods
             .filter(mod => this.props.includeFake || !mod.isFake)
             .filter(mod => Object.values(mod.description).find(value => {
                 return value?.toString().toLowerCase().includes(lowercasedFilter);
@@ -48,9 +58,45 @@ export default class ModSearch extends Component {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>)}
-                    </tbody>
+                    {(() => {
+                        const items: ReactElement[] = filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>);
+
+                        if (this.props.droppableId) {
+                            return (
+                                <Droppable droppableId={ this.props.droppableId ?? "" }>
+                                    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                                        <tbody ref={ provided.innerRef }>
+                                            {filteredMods.map((mod, index) => (
+                                                <Draggable
+                                                    key={mod.description.localId}
+                                                    draggableId={mod.description.localId}
+                                                    index={index}
+                                                >
+                                                    {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                                                        // <div
+                                                        //     ref={provided.innerRef}
+                                                        //     {...provided.draggableProps}
+                                                        //     {...provided.dragHandleProps}
+                                                        // >
+                                                        //     <ModSearchRow key={mod.description.localId} mod={mod}/>
+                                                        // </div>
+                                                        <ModSearchRow key={mod.description.localId} mod={mod} draggableProvided={provided}/>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+                                        </tbody>
+                                    )}
+                                </Droppable>
+                            )
+                        } else {
+                            return (
+                                <tbody>
+                                    {filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>)}
+                                </tbody>
+                            );
+                        }
+                    })()}
                 </table>
             </div>
         )
