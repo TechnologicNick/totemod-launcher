@@ -61,13 +61,17 @@ export default class ModDnd extends Component {
     render() {
         console.table(this.state);
 
+        let modSearchWidth: React.CSSProperties = {
+            width: "calc((100% - 3rem) / 2)"
+        } 
+
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <div className="d-flex" style={{ columnGap: "3rem" }}>
-                    <div className="w-full">
+                <div className="w-full">
+                    <div className="float-left" style={modSearchWidth}>
                         <ModSearch droppableId="disabled" mods={this.state.modsDisabled}/>
                     </div>
-                    <div className="w-full">
+                    <div className="float-right" style={modSearchWidth}>
                         <ModSearch droppableId="enabled" mods={this.state.modsEnabled}/>
                     </div>
                 </div>

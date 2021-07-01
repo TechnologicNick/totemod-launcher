@@ -49,66 +49,48 @@ export default class ModSearch extends Component {
                 return value?.toString().toLowerCase().includes(lowercasedFilter);
             }));
 
-        const TableHeader = () => {
-            const { width, height, ref } = useResizeDetector({
-                handleHeight: false
-            });
-
-            console.log(width);
-
-            return <thead ref={ref}>
-                <tr>
-                    <th style={{ width: `min(calc(10rem * 16/9), calc(${width}px * 0.30))` }}></th>{/* Set the width of the image column */}
-                    <th></th>
-                </tr>
-            </thead>
-        }
-
         return (
             <div className="ModSearch container-fluid">
                 <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
-                <table className="table" style={{ tableLayout: "fixed", width: "100%" }}>
-                    <TableHeader />
-                    {(() => {
-                        const items: ReactElement[] = filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>);
+                {(() => {
+                    const items: ReactElement[] = filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>);
 
-                        if (this.props.droppableId) {
-                            return (
-                                <Droppable droppableId={ this.props.droppableId ?? "" }>
-                                    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-                                        <tbody ref={ provided.innerRef }>
-                                            {filteredMods.map((mod, index) => (
-                                                <Draggable
-                                                    key={mod.description.localId}
-                                                    draggableId={mod.description.localId}
-                                                    index={index}
-                                                >
-                                                    {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                                                        // <div
-                                                        //     ref={provided.innerRef}
-                                                        //     {...provided.draggableProps}
-                                                        //     {...provided.dragHandleProps}
-                                                        // >
-                                                        //     <ModSearchRow key={mod.description.localId} mod={mod}/>
-                                                        // </div>
-                                                        <ModSearchRow key={mod.description.localId} mod={mod} draggableProvided={provided}/>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                            {provided.placeholder}
-                                        </tbody>
-                                    )}
-                                </Droppable>
-                            )
-                        } else {
-                            return (
-                                <tbody>
-                                    {filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>)}
-                                </tbody>
-                            );
-                        }
-                    })()}
-                </table>
+                    if (this.props.droppableId) {
+                        return (
+                            <Droppable droppableId={ this.props.droppableId ?? "" }>
+                                {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                                    <div className="list" ref={ provided.innerRef }>
+                                        {filteredMods.map((mod, index) => (
+                                            <Draggable
+                                                key={mod.description.localId}
+                                                draggableId={mod.description.localId}
+                                                index={index}
+                                            >
+                                                {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                                                    // <div
+                                                    //     ref={provided.innerRef}
+                                                    //     {...provided.draggableProps}
+                                                    //     {...provided.dragHandleProps}
+                                                    // >
+                                                    //     <ModSearchRow key={mod.description.localId} mod={mod}/>
+                                                    // </div>
+                                                    <ModSearchRow key={mod.description.localId} mod={mod} draggableProvided={provided}/>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        )
+                    } else {
+                        return (
+                            <div className="list">
+                                {filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>)}
+                            </div>
+                        );
+                    }
+                })()}
             </div>
         )
     }

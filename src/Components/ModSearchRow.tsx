@@ -13,15 +13,13 @@ export default class ModSearchRow extends Component {
         const provided = this.props.draggableProvided;
 
         return (
-            <tr
+            <div className="item"
                 ref={provided?.innerRef}
                 {...provided?.draggableProps}
                 {...provided?.dragHandleProps}
             >
-                <td className="p-0">
-                    <img src={this.props.mod.preview} className="w-full rounded" />
-                </td>
-                <td>
+                <img src={this.props.mod.preview} className="w-full rounded" />
+                <div className="info">
                     <h2 className="d-inline-block mr-20 mb-5 content-title">
                         {this.props.mod.description.name}
                     </h2>
@@ -37,8 +35,8 @@ export default class ModSearchRow extends Component {
                             Survival
                         </span>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </div>
         )
     }
 }
