@@ -2,7 +2,7 @@ import React, { Component, ReactElement } from 'react';
 import { WorkshopMod, WorkshopModManager } from 'scrap-mechanic-common';
 import Settings from '../settings';
 import ModSearchRow from './ModSearchRow';
-import ConditionalWrap from 'conditional-wrap';
+import { useResizeDetector } from 'react-resize-detector';
 import { Draggable, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
 
 export default class ModSearch extends Component {
@@ -36,6 +36,7 @@ export default class ModSearch extends Component {
 
         if (Settings.isSetup && Object.keys(WorkshopModManager.mods).length === 0){
             WorkshopModManager.reloadMods(false);
+            console.log("reloaded", Object.values(WorkshopModManager.mods).length);
         }
 
         const mods = this.props.mods ?? Object.values(WorkshopModManager.mods)
@@ -48,16 +49,26 @@ export default class ModSearch extends Component {
                 return value?.toString().toLowerCase().includes(lowercasedFilter);
             }));
 
+        const TableHeader = () => {
+            const { width, height, ref } = useResizeDetector({
+                handleHeight: false
+            });
+
+            console.log(width);
+
+            return <thead ref={ref}>
+                <tr>
+                    <th style={{ width: `min(calc(10rem * 16/9), calc(${width}px * 0.30))` }}></th>{/* Set the width of the image column */}
+                    <th></th>
+                </tr>
+            </thead>
+        }
+
         return (
             <div className="ModSearch container-fluid">
                 <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
-                <table className="table" style={{ tableLayout: "fixed" }}>
-                    <thead>
-                        <tr>
-                            <th style={{ width: "calc(10rem * 16/9)" }}></th>{/* Set the width of the image column */}
-                            <th></th>
-                        </tr>
-                    </thead>
+                <table className="table" style={{ tableLayout: "fixed", width: "100%" }}>
+                    <TableHeader />
                     {(() => {
                         const items: ReactElement[] = filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>);
 
