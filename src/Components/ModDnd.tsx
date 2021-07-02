@@ -59,8 +59,6 @@ export default class ModDnd extends Component {
     }
 
     render() {
-        console.table(this.state);
-
         let modSearchWidth: React.CSSProperties = {
             width: "calc((100% - 3rem) / 2)"
         } 

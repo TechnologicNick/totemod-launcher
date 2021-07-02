@@ -1,5 +1,6 @@
 import React from 'react';
 import ModDnd from '../Components/ModDnd';
+import LoadMods from '../Components/LoadMods';
 
 export default function PageModpacksEditMods() {
     return (
@@ -7,7 +8,9 @@ export default function PageModpacksEditMods() {
             <h2 className="content-title">
                 Mod selection
             </h2>
-            <ModDnd />
+            <LoadMods>
+                <ModDnd />
+            </LoadMods>
         </div>
     )
 }

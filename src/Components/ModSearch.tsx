@@ -29,17 +29,6 @@ export default class ModSearch extends Component {
 
     render() {
 
-        if (Settings.isSetup === undefined) {
-            if (!Settings.checkSetup()) {
-                Settings.setup().then(() => this.forceUpdate());
-            }
-        }
-
-        if (Settings.isSetup && Object.keys(WorkshopModManager.mods).length === 0){
-            WorkshopModManager.reloadMods(false);
-            console.log("reloaded", Object.values(WorkshopModManager.mods).length);
-        }
-
         const mods = this.props.mods ?? Object.values(WorkshopModManager.mods)
 
         const { filter } = this.state;
