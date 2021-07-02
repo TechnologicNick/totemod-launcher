@@ -4,6 +4,7 @@ import Settings from '../settings';
 import ModSearchRow from './ModSearchRow';
 import { useResizeDetector } from 'react-resize-detector';
 import { Draggable, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
+import './ModSearch.global.scss';
 
 export default class ModSearch extends Component {
     public static defaultProps = {

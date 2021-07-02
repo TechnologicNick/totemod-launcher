@@ -1,0 +1,12 @@
+.dark-mode .ModSearch {
+    --item-border-color: var(--dm-table-border-color);
+}
+
+.ModSearch {
+    --item-border-color: var(--lm-table-border-color);
+}
+
+.ModSearch .list {
+    margin-top: 2rem;
+    border-top: 3px solid var(--item-border-color);
+}

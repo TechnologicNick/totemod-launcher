@@ -1,6 +1,32 @@
-.ModSearch .description {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.ModSearch .item {
+
     width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    border-top: 1px solid var(--item-border-color);
+    border-bottom: 1px solid var(--item-border-color);
+    margin-top: -1px; // put borders on top of eachother
+
+    img {
+        width: 16rem;
+        max-width: 30%;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .info {
+        width: calc(100% - min(16rem, 30%));
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .ellipsis {
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+    }
 }

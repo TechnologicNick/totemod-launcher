@@ -18,13 +18,12 @@ export default class ModSearchRow extends Component {
                 {...provided?.draggableProps}
                 {...provided?.dragHandleProps}
             >
-                <img src={this.props.mod.preview} className="w-full rounded" />
-                <div className="info">
-                    <h2 className="d-inline-block mr-20 mb-5 content-title">
+                <img src={this.props.mod.preview} className="rounded" />
+                <div className="info pl-10">
+                    <h2 className="m-0 ellipsis content-title">
                         {this.props.mod.description.name}
                     </h2>
-                    <br />
-                    <span className="description d-inline-block text-muted">
+                    <span className="ellipsis text-muted">
                         {this.props.mod.description.description}
                     </span>
                     <div>
