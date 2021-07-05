@@ -123,7 +123,7 @@ export default class ModDnd extends Component {
                         <ModSearch droppableId="disabled" mods={this.state.modsDisabled}/>
                     </div>
                     <div className="float-right" style={modSearchWidth}>
-                        <ModSearch droppableId="enabled" mods={this.state.modsEnabled}/>
+                        <ModSearch droppableId="enabled" mods={this.state.modsEnabled} muteFiltered={true}/>
                     </div>
                 </div>
             </DragDropContext>

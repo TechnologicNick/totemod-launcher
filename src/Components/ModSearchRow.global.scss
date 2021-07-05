@@ -29,3 +29,21 @@
         width: 100%;
     }
 }
+
+.ModSearch .item.muted {
+
+    opacity: 0.3;
+
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    img {
+        width: calc(1.6em * 16/9);
+        height: 1.6em;
+        object-fit: scale-down;
+    }
+
+}
+.ModSearch .item.muted:hover {
+    opacity: 1;
+}

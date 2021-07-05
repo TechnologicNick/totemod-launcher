@@ -10,13 +10,15 @@ export default class ModSearch extends Component {
     public static defaultProps = {
         includeFake: false,
         droppableId: undefined,
-        mods: undefined
+        mods: undefined,
+        muteFiltered: false
     }
 
     props!: {
         includeFake: boolean,
         droppableId?: string,
-        mods: WorkshopMod[]
+        mods: WorkshopMod[],
+        muteFiltered?: boolean
     };
 
     state = {
@@ -43,28 +45,24 @@ export default class ModSearch extends Component {
             <div className="ModSearch container-fluid">
                 <input type="text" className="form-control" placeholder="Search (name, description, id)" value={filter} onChange={this.handleChange}></input>
                 {(() => {
-                    const items: ReactElement[] = filteredMods.map(mod => <ModSearchRow key={mod.description.localId} mod={mod}/>);
-
                     if (this.props.droppableId) {
                         return (
                             <Droppable droppableId={ this.props.droppableId ?? "" }>
                                 {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
                                     <div className="list" ref={ provided.innerRef }>
-                                        {filteredMods.map((mod, index) => (
+                                        {(this.props.muteFiltered ? mods : filteredMods).map((mod, index) => (
                                             <Draggable
                                                 key={mod.description.localId}
                                                 draggableId={mod.description.localId}
                                                 index={index}
                                             >
                                                 {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                                                    // <div
-                                                    //     ref={provided.innerRef}
-                                                    //     {...provided.draggableProps}
-                                                    //     {...provided.dragHandleProps}
-                                                    // >
-                                                    //     <ModSearchRow key={mod.description.localId} mod={mod}/>
-                                                    // </div>
-                                                    <ModSearchRow key={mod.description.localId} mod={mod} draggableProvided={provided}/>
+                                                    <ModSearchRow
+                                                        key={mod.description.localId}
+                                                        mod={mod}
+                                                        draggableProvided={provided}
+                                                        muted={this.props.muteFiltered && !filteredMods.includes(mod)}
+                                                    />
                                                 )}
                                             </Draggable>
                                         ))}
