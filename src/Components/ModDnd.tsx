@@ -4,12 +4,21 @@ import Settings from '../settings';
 import ModSearch from './ModSearch';
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
-function moveItem<T extends any[]>(arr: T, from: number, to: number) {
+function moveItemSame<T extends any[]>(arr: T, indexFrom: number, indexTo: number) {
     let clonedArr = Array.from(arr);
-    let [removed] = clonedArr.splice(from, 1);
-    clonedArr.splice(to, 0, removed);
+    let [removed] = clonedArr.splice(indexFrom, 1);
+    clonedArr.splice(indexTo, 0, removed);
 
     return clonedArr;
+}
+
+function moveItemBetween<T extends any[]>(arrFrom: T, arrTo: T, indexFrom: number, indexTo: number) {
+    let clonedArrFrom = Array.from(arrFrom);
+    let clonedArrTo = Array.from(arrTo);
+    let [removed] = clonedArrFrom.splice(indexFrom, 1);
+    clonedArrTo.splice(indexTo, 0, removed);
+
+    return [ clonedArrFrom, clonedArrTo ];
 }
 
 export default class ModDnd extends Component {
@@ -45,14 +54,36 @@ export default class ModDnd extends Component {
             return;
         }
 
+        let idToList: {[key: string]: WorkshopMod[]} = {
+            ["disabled"]: this.state.modsDisabled,
+            ["enabled"]: this.state.modsEnabled
+        }
+
+        let srcList = idToList[source.droppableId];
+        let destList = idToList[destination.droppableId];
+
         if (source.droppableId === destination.droppableId) {
             if (source.droppableId === "disabled") {
                 this.setState({
-                    modsDisabled: moveItem(this.state.modsDisabled, source.index, destination.index)
+                    modsDisabled: moveItemSame(this.state.modsDisabled, source.index, destination.index)
                 });
             } else if (source.droppableId === "enabled") {
                 this.setState({
-                    modsEnabled: moveItem(this.state.modsEnabled, source.index, destination.index)
+                    modsEnabled: moveItemSame(this.state.modsEnabled, source.index, destination.index)
+                });
+            }
+        } else {
+            let [ src, dest ] = moveItemBetween(srcList, destList, source.index, destination.index);
+
+            if (source.droppableId === "disabled") {
+                this.setState({
+                    modsDisabled: src,
+                    modsEnabled: dest
+                });
+            } else if (source.droppableId === "enabled") {
+                this.setState({
+                    modsDisabled: dest,
+                    modsEnabled: src
                 });
             }
         }
