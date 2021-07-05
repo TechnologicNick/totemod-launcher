@@ -95,7 +95,8 @@ export default class ModDnd extends Component {
             }
         } else {
             // Move between lists
-            let [ src, dest ] = moveItemBetween(srcList, destList, source.index, destination.index);
+            let srcIndex = srcList.findIndex(mod => mod.description.localId === result.draggableId);
+            let [ src, dest ] = moveItemBetween(srcList, destList, srcIndex, destination.index);
 
             if (source.droppableId === "disabled") {
                 this.setState({
