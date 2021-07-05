@@ -21,19 +21,39 @@ function moveItemBetween<T extends any[]>(arrFrom: T, arrTo: T, indexFrom: numbe
     return [ clonedArrFrom, clonedArrTo ];
 }
 
+type PropsModDnd = {
+    mods?: WorkshopMod[],
+    modsDisabled?: WorkshopMod[],
+    modsEnabled: WorkshopMod[],
+}
+
 export default class ModDnd extends Component {
+    props!: PropsModDnd;
 
-    constructor(props: {}) {
+    constructor(props: PropsModDnd) {
         super(props);
+        this.props = props;
 
-        // Fill lists with mods
-        let mods = Object.values(WorkshopModManager.mods).filter(mod => !mod.isFake);
-        let half = Math.floor(mods.length / 2);
+        if (this.props.mods && this.props.modsDisabled && this.props.modsEnabled) {
+            throw "Can't have `mods` prop when both `modsDisabled` and `modsEnabled` props are set";
+        }
+        
+        if (this.props.modsDisabled && this.props.modsEnabled) {
+            this.state = {
+                modsDisabled: this.props.modsDisabled,
+                modsEnabled: this.props.modsEnabled
+            };
+        } else {
+            let mods = this.props.mods ?? Object.values(WorkshopModManager.mods).filter(mod => !mod.isFake);
+            let enabled = this.props.modsEnabled;
+            let disabled = this.props.modsDisabled ?? mods.filter(mod => !enabled.includes(mod));
 
-        this.state = {
-            modsDisabled: mods.slice(0, half - 1),
-            modsEnabled: mods.slice(half, mods.length)
-        };
+            this.state = {
+                modsDisabled: disabled,
+                modsEnabled: enabled
+            };
+        }
+
     }
 
     state: {
@@ -63,16 +83,18 @@ export default class ModDnd extends Component {
         let destList = idToList[destination.droppableId];
 
         if (source.droppableId === destination.droppableId) {
+            // Move inside the same list
             if (source.droppableId === "disabled") {
                 this.setState({
-                    modsDisabled: moveItemSame(this.state.modsDisabled, source.index, destination.index)
+                    modsDisabled: moveItemSame(srcList, source.index, destination.index)
                 });
             } else if (source.droppableId === "enabled") {
                 this.setState({
-                    modsEnabled: moveItemSame(this.state.modsEnabled, source.index, destination.index)
+                    modsEnabled: moveItemSame(srcList, source.index, destination.index)
                 });
             }
         } else {
+            // Move between lists
             let [ src, dest ] = moveItemBetween(srcList, destList, source.index, destination.index);
 
             if (source.droppableId === "disabled") {

@@ -9,7 +9,7 @@ export default function PageModpacksEditMods() {
                 Mod selection
             </h2>
             <LoadMods>
-                <ModDnd />
+                <ModDnd modsEnabled={[]}/>
             </LoadMods>
         </div>
     )
