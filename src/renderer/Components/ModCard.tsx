@@ -1,5 +1,4 @@
-import React from 'react';
-import { WorkshopMod } from 'scrap-mechanic-common';
+import type { WorkshopMod } from 'scrap-mechanic-common';
 
 export default function ModCard(props: {mod: WorkshopMod}) {
     return (

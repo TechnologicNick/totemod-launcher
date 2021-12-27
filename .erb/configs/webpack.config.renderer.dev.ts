@@ -171,6 +171,13 @@ const configuration: webpack.Configuration = {
         .on('error', (spawnError) => console.error(spawnError));
     },
   },
+
+  resolve: {
+    fallback: {
+      // FIXME: Don't use fallback path outside project root
+      "totemod-core": require.resolve("../../../totemod-core"),
+    }
+  }
 };
 
 export default merge(baseConfig, configuration);

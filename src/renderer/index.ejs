@@ -4,18 +4,7 @@
     <meta charset="utf-8" />
     <title>Hello Electron React!</title>
   </head>
-  <body>
+  <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true" data-set-preferred-mode-onload="true">
     <div id="root"></div>
   </body>
-  <script>
-    window.global = window;
-    window.require = electron.require;
-
-    window.electron.ipcRenderer.once('ipc-example', (arg) => {
-      // eslint-disable-next-line no-console
-      console.log(arg);
-    });
-
-    window.electron.ipcRenderer.myPing();
-  </script>
 </html>
