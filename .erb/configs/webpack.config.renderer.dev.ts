@@ -42,7 +42,7 @@ const configuration: webpack.Configuration = {
 
   mode: 'development',
 
-  target: ['web', 'electron-renderer'],
+  target: 'node',
 
   entry: [
     `webpack-dev-server/client?http://localhost:${port}/dist`,

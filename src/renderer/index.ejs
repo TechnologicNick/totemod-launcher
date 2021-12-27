@@ -8,6 +8,9 @@
     <div id="root"></div>
   </body>
   <script>
+    window.global = window;
+    window.require = electron.require;
+
     window.electron.ipcRenderer.once('ipc-example', (arg) => {
       // eslint-disable-next-line no-console
       console.log(arg);
