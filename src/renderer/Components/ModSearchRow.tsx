@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DraggableProvided } from 'react-beautiful-dnd';
 import { WorkshopMod } from 'scrap-mechanic-common';
 import classNames from 'classnames';
-import './ModSearchRow.global.scss';
+import './ModSearchRow.scss';
 
 export default class ModSearchRow extends Component {
     props!: {

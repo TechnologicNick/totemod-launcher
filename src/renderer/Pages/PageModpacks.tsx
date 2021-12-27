@@ -4,7 +4,7 @@ import halfmoon from 'halfmoon';
 import { useForm } from 'react-hook-form';
 import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
 import { Core, ModpackManager } from 'totemod-core';
-import './PageModpacks.global.scss';
+import './PageModpacks.scss';
 import ModpackDisplay from '../Components/ModpackDisplay';
 
 const toggleAddModpack = (e: React.MouseEvent) => {
