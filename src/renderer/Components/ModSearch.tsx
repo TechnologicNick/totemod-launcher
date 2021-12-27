@@ -1,8 +1,6 @@
-import React, { Component, ReactElement } from 'react';
+import React, { Component } from 'react';
 import { WorkshopMod, WorkshopModManager } from 'scrap-mechanic-common';
-import Settings from '../settings';
 import ModSearchRow from './ModSearchRow';
-import { useResizeDetector } from 'react-resize-detector';
 import { Draggable, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
 import './ModSearch.scss';
 

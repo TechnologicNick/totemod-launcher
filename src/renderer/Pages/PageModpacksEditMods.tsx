@@ -1,4 +1,3 @@
-import React from 'react';
 import ModDnd from '../Components/ModDnd';
 import LoadMods from '../Components/LoadMods';
 import { WorkshopModManager } from 'scrap-mechanic-common';

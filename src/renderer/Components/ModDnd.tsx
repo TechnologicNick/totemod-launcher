@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { WorkshopMod, WorkshopModManager } from 'scrap-mechanic-common';
-import Settings from '../settings';
 import ModSearch from './ModSearch';
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 

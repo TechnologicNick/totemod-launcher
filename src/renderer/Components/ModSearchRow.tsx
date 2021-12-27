@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { DraggableProvided } from 'react-beautiful-dnd';
 import { WorkshopMod } from 'scrap-mechanic-common';
 import classNames from 'classnames';

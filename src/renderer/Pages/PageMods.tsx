@@ -1,4 +1,3 @@
-import React from 'react';
 import ModSearch from '../Components/ModSearch';
 import LoadMods from '../Components/LoadMods';
 

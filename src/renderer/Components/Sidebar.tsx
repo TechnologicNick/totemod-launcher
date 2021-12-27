@@ -1,9 +1,7 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom';
 import halfmoon from 'halfmoon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon } from '@fortawesome/free-regular-svg-icons';
-// import SidebarItem from './SidebarItem';
 import { Page } from '../App';
 
 export function Sidebar(props: { pages: Page[] }) {
@@ -19,7 +17,7 @@ export function Sidebar(props: { pages: Page[] }) {
                   let out: JSX.Element[] = [];
                   let currentCategory: string = "";
 
-                  props.pages.filter(page => page.sidebar).forEach((page: Page, index: number) => {
+                  props.pages.filter(page => page.sidebar).forEach((page: Page) => {
                     const si = <SidebarItem key={page.path} path={page.path} displayName={page.displayName} />;
 
                     if (currentCategory !== page.category) {

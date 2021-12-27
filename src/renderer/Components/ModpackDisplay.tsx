@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Settings from '../settings';
 import { ModpackManager } from 'totemod-core';
 import ModpackCard from './ModpackCard';

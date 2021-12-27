@@ -1,11 +1,9 @@
 import React from 'react';
-import path from 'path';
 import halfmoon from 'halfmoon';
 import { useForm } from 'react-hook-form';
-import { PathHelper, WorkshopModManager } from 'scrap-mechanic-common';
-import { Core, ModpackManager } from 'totemod-core';
-import './PageModpacks.scss';
+import { ModpackManager } from 'totemod-core';
 import ModpackDisplay from '../Components/ModpackDisplay';
+import './PageModpacks.scss';
 
 const toggleAddModpack = (e: React.MouseEvent) => {
     e.preventDefault();

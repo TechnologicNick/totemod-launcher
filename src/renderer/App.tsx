@@ -1,8 +1,6 @@
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Sidebar } from './Components/Sidebar';
 import './App.scss';
-// import 'halfmoon/css/halfmoon-variables.min.css';
-// import 'halfmoon';
 
 // Page components
 import PageMods from './Pages/PageMods';
