@@ -6,6 +6,7 @@ import './App.scss';
 import PageMods from './Pages/PageMods';
 import PageModpacks from './Pages/PageModpacks';
 import PageModpacksEditMods from './Pages/PageModpacksEditMods';
+import PageLocalMods from './Pages/PageLocalMods';
 
 export interface Page {
   sidebar: boolean;
@@ -22,7 +23,7 @@ export const pages: Page[] = [
   { sidebar: false, category: "Installed", path: "/modpacks/edit/mods", displayName: "Modpacks > Edit > Mods", component: <PageModpacksEditMods /> },
   { sidebar: true, category: "Installed", path: "/modpacks", displayName: "Modpacks", component: <PageModpacks /> },
   
-  { sidebar: true, category: "Mod making", path: "/local-mods", displayName: "Local mods" },
+  { sidebar: true, category: "Mod making", path: "/local-mods", displayName: "Local mods", component: <PageLocalMods /> },
 ];
 
 export function App() {
