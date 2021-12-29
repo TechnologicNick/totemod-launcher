@@ -1,0 +1,13 @@
+.particle-editor-node {
+    .collapse-caret {
+        transform: rotate(0deg);
+        transition: transform 0.05s ease;
+    }
+}
+
+.particle-editor-node.collapsed {
+    .collapse-caret {
+        transform: rotate(-90deg);
+        transition: transform 0.05s ease;
+    }
+}
