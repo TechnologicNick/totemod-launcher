@@ -7,9 +7,8 @@ import './ParticleEditorGrid.scss';
 
 export default class ParticleEditorGrid extends Component {
 
-    onPanningStart(ref: ReactZoomPanPinchRef, event: TouchEvent | MouseEvent) {
+    updatePanningState(ref: ReactZoomPanPinchRef, event: TouchEvent | MouseEvent) {
         const target = event.target as HTMLElement;
-
         ref.instance.setup.panning.disabled = !target.classList.contains("particle-editor-grid");
     }
 
@@ -21,7 +20,8 @@ export default class ParticleEditorGrid extends Component {
                     maxScale={1}
                     panning={{ excluded: ["no-panning"] }}
                     doubleClick={{ disabled: true }}
-                    onPanningStart={this.onPanningStart}
+                    onPanningStart={this.updatePanningState}
+                    onPanning={this.updatePanningState}
                 >
                     <TransformComponent wrapperStyle={{ width: "100%", height: "100vh" }}>
                         <div className="particle-editor-grid" style={{
