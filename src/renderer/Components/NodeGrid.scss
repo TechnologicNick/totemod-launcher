@@ -1,8 +1,8 @@
-.dark-mode .particle-editor-grid {
+.dark-mode .node-grid {
     background-image: radial-gradient(var(--dark-color-light) 20%, var(--dark-color-dark) 20%);
 }
 
-.particle-editor-grid {
+.node-grid {
     background-image: radial-gradient(var(--gray-color) 20%, var(--gray-color-very-light) 20%);
     background-position: 1rem 1rem;
     background-size: 2rem 2rem;

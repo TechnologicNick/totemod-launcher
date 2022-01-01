@@ -1,0 +1,24 @@
+.node-field {
+    width: 100%;
+    position: relative;
+    padding: 0px;
+}
+
+.node-field-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    padding-left: var(--input-horizontal-padding);
+    padding-right: var(--input-horizontal-padding);
+    pointer-events: none;
+}
+
+.node-field-input {
+    background-color: transparent !important;
+    border: 0px;
+}
+
+.node-field-number:not(.textbox) .node-field-input {
+    cursor: ew-resize;
+}

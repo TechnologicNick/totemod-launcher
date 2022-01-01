@@ -1,11 +1,11 @@
 import { Component } from 'react';
-import ParticleEditorGrid from '../Components/ParticleEditorGrid';
+import NodeGrid from '../Components/NodeGrid';
 
 export default class PageParticleEditor extends Component {
     render() {
         return (
             <div>
-                <ParticleEditorGrid />
+                <NodeGrid />
             </div>
         )
     }

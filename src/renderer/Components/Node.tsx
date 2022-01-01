@@ -2,13 +2,13 @@ import { Component } from 'react';
 import classNames from 'classnames';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './ParticleEditorNode.scss';
+import './Node.scss';
 
 type ParticleEditorNodeProps = {
     collapsed: boolean;
 }
 
-export default class ParticleEditorNode extends Component {
+export default class Node extends Component {
 
     props!: {
         children?: React.ReactNode,
@@ -29,9 +29,9 @@ export default class ParticleEditorNode extends Component {
 
     render() {
         return (
-            <div className={classNames("particle-editor-node rounded w-400 position-absolute", {"collapsed": this.state.collapsed})}>
+            <div className={classNames("node rounded w-400 position-absolute", {"collapsed": this.state.collapsed})}>
                 <div className="card p-0 m-0" style={{overflow: "hidden"}}>
-                    <div className="content-title" style={{backgroundColor: "teal"}}>
+                    <div className="dark-mode content-title" style={{backgroundColor: "teal"}}>
                         <h2 className="content-title m-0">
                             <button className="btn btn-square" type="button" onClick={this.toggleCollapsed.bind(this)}>
                                 <FontAwesomeIcon icon={faCaretDown} className="collapse-caret"/>
