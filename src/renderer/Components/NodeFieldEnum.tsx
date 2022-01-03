@@ -1,8 +1,9 @@
 import { expandRef } from './../schemas';
 import type { JSONSchema7 } from 'json-schema';
+import { NodeFieldProps } from './NodeField';
 import './NodeField.scss';
 
-const NodeFieldEnum = (props: { schema: any, definition: string, propertyName: string }) => {
+const NodeFieldEnum = (props: NodeFieldProps) => {
     const property: JSONSchema7 = expandRef(props.schema, `${props.definition}/properties/${props.propertyName}`);
     const label = props.propertyName;
 

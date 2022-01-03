@@ -1,18 +1,13 @@
 import React, { Component, FocusEvent, KeyboardEvent } from 'react'
 import { expandRef } from './../schemas';
 import { JSONSchema7 } from 'json-schema';
-import './NodeField.scss';
 import classNames from 'classnames';
-
-export type NodeFieldNumberProps = {
-    schema: any;
-    definition: string;
-    propertyName: string;
-}
+import type { NodeFieldProps } from './NodeField';
+import './NodeField.scss';
 
 export default class NodeFieldNumber extends Component {
 
-    props!: NodeFieldNumberProps;
+    props!: NodeFieldProps;
 
     state!: {
         mode: "draggable" | "dragging_start" | "dragging" | "textbox",
@@ -31,7 +26,7 @@ export default class NodeFieldNumber extends Component {
 
     inputRef: React.RefObject<HTMLInputElement>;
 
-    constructor(props: NodeFieldNumberProps) {
+    constructor(props: NodeFieldProps) {
         super(props);
 
         this.property = expandRef(props.schema, `${props.definition}/properties/${props.propertyName}`);
