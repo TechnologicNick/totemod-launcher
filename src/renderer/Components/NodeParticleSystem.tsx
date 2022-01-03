@@ -6,11 +6,25 @@ import NodeFieldNumber from './NodeFieldNumber';
 import NodeFieldEnum from './NodeFieldEnum';
 
 export default class NodeParticleSystem extends Component {
+
+    value: {[key: string]: any} = {}
+
     render() {
         const schema = schemaParticleSystem as JSONSchema7;
         const definition = "#/definitions/System";
 
-        const props = { schema, definition };
+        const getValue = (propertyName: string) => this.value[propertyName];
+        const setValue = (value: any, propertyName: string) => {
+            this.value[propertyName] = value;
+            console.log(`Set ${propertyName} to`, value, this.value);
+        }
+
+        const props = {
+            schema,
+            definition,
+            getCurrentValue: getValue,
+            onChange: setValue
+        };
 
         return (
             <div>

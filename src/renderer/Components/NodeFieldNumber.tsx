@@ -7,7 +7,7 @@ import './NodeField.scss';
 
 export default class NodeFieldNumber extends Component {
 
-    props!: NodeFieldProps;
+    props!: NodeFieldProps<number>;
 
     state!: {
         mode: "draggable" | "dragging_start" | "dragging" | "textbox",
@@ -26,7 +26,7 @@ export default class NodeFieldNumber extends Component {
 
     inputRef: React.RefObject<HTMLInputElement>;
 
-    constructor(props: NodeFieldProps) {
+    constructor(props: NodeFieldProps<number>) {
         super(props);
 
         this.property = expandRef(props.schema, `${props.definition}/properties/${props.propertyName}`);
@@ -34,7 +34,7 @@ export default class NodeFieldNumber extends Component {
 
         this.state = {
             mode: "draggable",
-            value: this.property.default as number ?? 0,
+            value: props.getCurrentValue?.(props.propertyName) ?? this.property.default as number ?? 0,
         }
 
         const min = this.property.minimum ?? (this.property.exclusiveMinimum ? this.property.exclusiveMinimum + 0.001 : undefined);
@@ -46,6 +46,8 @@ export default class NodeFieldNumber extends Component {
         this.multipleOf = this.property.multipleOf;
 
         this.inputRef = React.createRef();
+
+        this.props.onChange?.(this.state.value, this.props.propertyName);
     }
 
     onMouseMove = ((event: MouseEvent) => {
@@ -65,12 +67,17 @@ export default class NodeFieldNumber extends Component {
             increaseBy = Math.max(Math.abs(this.state.value), 1) * (event.movementX / width);
         }
 
-        this.setState({ value: this.state.value + increaseBy });
+        const value = this.state.value + increaseBy;
+
+        this.setState({ value });
     }).bind(this);
 
     onMouseUp = ((_event: MouseEvent) => {
         if (this.state.mode === "dragging_start") this.setState({ mode: "textbox" });
-        else if (this.state.mode === "dragging") this.setState({ mode: "draggable" });
+        else if (this.state.mode === "dragging") {
+            this.setState({ mode: "draggable" });
+            this.props.onChange?.(this.state.value, this.props.propertyName);
+        }
     }).bind(this);
 
     onFinishTyping(event: FocusEvent | KeyboardEvent) {
@@ -88,6 +95,7 @@ export default class NodeFieldNumber extends Component {
             mode: "draggable",
             value,
         });
+        this.props.onChange?.(value, this.props.propertyName);
     }
 
     componentDidMount() {
