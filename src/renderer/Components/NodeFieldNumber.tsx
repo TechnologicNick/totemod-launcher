@@ -7,7 +7,7 @@ import classNames from 'classnames';
 export type NodeFieldNumberProps = {
     schema: any;
     definition: string;
-    property: string;
+    propertyName: string;
 }
 
 export default class NodeFieldNumber extends Component {
@@ -34,8 +34,8 @@ export default class NodeFieldNumber extends Component {
     constructor(props: NodeFieldNumberProps) {
         super(props);
 
-        this.property = expandRef(props.schema, `${props.definition}/properties/${props.property}`);
-        this.label = props.property;
+        this.property = expandRef(props.schema, `${props.definition}/properties/${props.propertyName}`);
+        this.label = props.propertyName;
 
         this.state = {
             mode: "draggable",

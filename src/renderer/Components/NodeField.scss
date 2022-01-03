@@ -2,6 +2,7 @@
     width: 100%;
     position: relative;
     padding: 0px;
+    height: var(--input-height);
 }
 
 .node-field-label {
@@ -9,9 +10,17 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
+    pointer-events: none;
+}
+
+.form-control .node-field-label {
     padding-left: var(--input-horizontal-padding);
     padding-right: var(--input-horizontal-padding);
-    pointer-events: none;
+}
+
+.node-field-value-column {
+    width: 60%;
+    float: right;
 }
 
 .node-field-input {
