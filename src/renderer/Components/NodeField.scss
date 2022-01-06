@@ -31,3 +31,9 @@
 .node-field-number:not(.textbox) .node-field-input {
     cursor: ew-resize;
 }
+
+.node-field-boolean {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

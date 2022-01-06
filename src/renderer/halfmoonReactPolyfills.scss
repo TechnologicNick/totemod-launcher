@@ -1,0 +1,168 @@
+/*
+-------------------------------------------------------------------------------
+Halfmoon CSS
+Version: 1.1.1
+https://www.gethalfmoon.com
+Copyright, Halfmoon UI
+Licensed under MIT (https://www.gethalfmoon.com/license)
+-------------------------------------------------------------------------------
+The above notice must be included in its entirety when this file is used.
+
+
+
+Some parts are modified
+
+
+
+Credits:
+    Bootstrap and its contributors for class names and inspiration. Moreover, 
+    the containers, grid system and the flex utilities found in Halfmoon CSS 
+    are almost direct copies of the ones found in Bootstrap. Therefore, the 
+    following copyright notice is provided:
+    ---------------------------------------------------------------------------
+    Bootstrap (https://getbootstrap.com/)
+    Copyright 2011-2020 The Bootstrap Authors
+    Copyright 2011-2020 Twitter, Inc.
+    Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+    ---------------------------------------------------------------------------
+*/
+
+/* Checkbox */
+
+.react-custom-checkbox {
+    display: block;
+    position: relative;
+    line-height: 1.8rem;
+}
+.react-custom-checkbox input[type="checkbox"] {
+    /* Hide the default */
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+.react-custom-checkbox span {
+    display: inline-block;
+    margin-bottom: 0;
+    padding-left: 2.5rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.react-custom-checkbox span.blank {
+    padding-left: 1.8rem;
+}
+.react-custom-checkbox span:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: 1.8rem;
+    width: 1.8rem;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 0.4rem;
+}
+.react-custom-checkbox input[type="checkbox"]:hover~span:before {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.4);
+}
+.react-custom-checkbox input[type="checkbox"]:focus~span:before {
+    border-color: rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.6);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.6);
+    box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.6);
+}
+.react-custom-checkbox input[type="checkbox"]:checked~span:before {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+.react-custom-checkbox input[type="checkbox"]:checked:focus~span:before {
+    border-color: #1890ff;
+    -moz-box-shadow: 0 0 0 0.3rem rgba(24, 144, 255, 0.3);
+    -webkit-box-shadow: 0 0 0 0.3rem rgba(24, 144, 255, 0.3);
+    box-shadow: 0 0 0 0.3rem rgba(24, 144, 255, 0.3);
+}
+.dark-mode .react-custom-checkbox span:before {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:hover~span:before {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:focus~span:before {
+    border-color: rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.3);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.3);
+    box-shadow: 0 0 0 0.2rem rgba(24, 144, 255, 0.3);
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:checked~span:before {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:checked:focus~span:before {
+    border-color: #1890ff;
+    -moz-box-shadow: 0 0 0 0.3rem rgba(24, 144, 255, 0.3);
+    -webkit-box-shadow: 0 0 0 0.3rem rgba(24, 144, 255, 0.3);
+    box-shadow: 0 0 0 0.3rem rgba(24, 144, 255, 0.3);
+}
+.react-custom-checkbox span:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 0.6rem;
+    top: 0.3rem;
+    width: 0.6rem;
+    height: 1rem;
+    border: solid #ffffff;
+    border-width: 0 0.2rem 0.2rem 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.dark-mode .react-custom-checkbox span:after {
+    border-color: #ffffff;
+}
+.react-custom-checkbox input[type="checkbox"]:checked~span:after {
+    display: block;
+}
+.react-custom-checkbox input[type="checkbox"]:disabled~span {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.react-custom-checkbox input[type="checkbox"]:disabled~span:before {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.3);
+}
+.react-custom-checkbox input[type="checkbox"]:hover:disabled~span:before {
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.3);
+}
+.react-custom-checkbox input[type="checkbox"]:disabled:checked~span:before {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+.react-custom-checkbox input[type="checkbox"]:hover:disabled:checked~span:before {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:disabled~span:before {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:hover:disabled~span:before {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:disabled:checked~span:before {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+.dark-mode .react-custom-checkbox input[type="checkbox"]:hover:disabled:checked~span:before {
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
