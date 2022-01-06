@@ -15,8 +15,6 @@ export function expandRef(schema: any, pointer: string, alreadyTraversed: string
         return base;
     }
 
-    console.log({base});
-
     if (base.hasOwnProperty("$ref")) {
         const recursive = expandRef(schema, base.$ref, [...alreadyTraversed, pointer]);
         const obj = Object.assign({}, recursive, base);

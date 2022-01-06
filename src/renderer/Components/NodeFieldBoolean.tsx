@@ -4,11 +4,11 @@ import type { JSONSchema7 } from 'json-schema';
 import { NodeFieldProps } from './NodeField';
 import './NodeField.scss';
 
-const NodeFieldBoolean = (props: NodeFieldProps<any>) => {
+const NodeFieldBoolean = (props: NodeFieldProps<boolean>) => {
     const property: JSONSchema7 = expandRef(props.schema, `${props.definition}/properties/${props.propertyName}`);
     const label = props.propertyName;
 
-    const selected = props.getCurrentValue?.(props.propertyName) ?? property.default;
+    const selected = props.getCurrentValue?.(props.propertyName) ?? property.default as boolean;
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.onChange?.(event.target.checked, props.propertyName);
     }

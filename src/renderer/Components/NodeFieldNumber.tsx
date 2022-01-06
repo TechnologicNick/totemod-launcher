@@ -109,8 +109,6 @@ export default class NodeFieldNumber extends Component {
     }
 
     render() {
-        console.log(this.state.mode, this.state.value);
-
         if (this.state.mode === "textbox") {
             this.inputRef.current!.value = this.state.value.toString();
         }
