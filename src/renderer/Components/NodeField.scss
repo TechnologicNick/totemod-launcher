@@ -37,3 +37,51 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+.node-field-group > summary {
+    width: 100%;
+    position: relative;
+    padding: 0px;
+    height: var(--input-height);
+    padding-left: var(--input-horizontal-padding);
+    padding-right: var(--input-horizontal-padding);
+    list-style: none;
+    cursor: pointer;
+    
+    .collapse-caret {
+        font-size: 2rem;
+        width: 1.8rem;
+        position: absolute;
+        top: 50%;
+    }
+    
+    .node-field-label {
+        padding-left: 2.5rem;
+    }
+}
+
+.dark-mode .node-field-group {
+    background-color: rgba($color: white, $alpha: 0.05);
+    border: 1px solid var(--dm-input-border-color);
+}
+
+.node-field-group {
+    // background-color: rgba($color: black, $alpha: 0.05);
+    border: 1px solid var(--lm-input-border-color);
+}
+
+.node-field-group .node-field-group-content {
+    padding-left: var(--input-horizontal-padding);
+    padding-right: var(--input-horizontal-padding);
+    padding-bottom: var(--input-horizontal-padding);
+}
+
+.node-field-group[open] .collapse-caret {
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.05s ease;
+}
+
+.node-field-group:not([open]) .collapse-caret {
+    transform: translateY(-50%) rotate(-90deg);
+    transition: transform 0.05s ease;
+}
