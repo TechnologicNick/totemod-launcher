@@ -5,9 +5,13 @@ import classNames from 'classnames';
 import type { NodeFieldProps } from './NodeField';
 import './NodeField.scss';
 
+export type NodeFieldNumberProps = NodeFieldProps<number> & {
+    isInteger?: boolean;
+}
+
 export default class NodeFieldNumber extends Component {
 
-    props!: NodeFieldProps<number>;
+    props!: NodeFieldNumberProps;
 
     state!: {
         mode: "draggable" | "dragging_start" | "dragging" | "textbox",
@@ -17,38 +21,50 @@ export default class NodeFieldNumber extends Component {
     label: string;
     property: JSONSchema7;
 
+    integer: boolean;
+    multipleOf?: number;
+
     range?: {
         min: number;
         max: number;
     }
 
-    multipleOf?: number;
-
     inputRef: React.RefObject<HTMLInputElement>;
 
-    constructor(props: NodeFieldProps<number>) {
+    constructor(props: NodeFieldNumberProps) {
         super(props);
 
         this.property = expandRef(props.schema, `${props.definition}/properties/${props.propertyName}`);
         this.label = props.propertyName;
 
+        if (this.property.type === "integer" && !this.props.isInteger)
+            throw `Property "${props.definition}/properties/${props.propertyName}" is of type integer but has no matching isInteger (${this.props.isInteger}) prop!`;
+
         this.state = {
             mode: "draggable",
             value: props.getCurrentValue?.(props.propertyName) ?? this.property.default as number ?? 0,
         }
-
-        const min = this.property.minimum ?? (this.property.exclusiveMinimum ? this.property.exclusiveMinimum + 0.001 : undefined);
-        const max = this.property.maximum ?? (this.property.exclusiveMaximum ? this.property.exclusiveMaximum - 0.001 : undefined);
+        
+        this.integer = this.property.type === "integer";
+        this.multipleOf = this.property.multipleOf ?? (this.integer ? 1 : undefined);
+        
+        const min = this.property.minimum ?? (this.property.exclusiveMinimum ? this.property.exclusiveMinimum + (this.multipleOf ?? 0.001) : undefined);
+        const max = this.property.maximum ?? (this.property.exclusiveMaximum ? this.property.exclusiveMaximum - (this.multipleOf ?? 0.001) : undefined);
         if (min !== undefined && max !== undefined) {
             this.range = { min, max };
         }
-
-        this.multipleOf = this.property.multipleOf;
 
         this.inputRef = React.createRef();
 
         this.props.onChange?.(this.state.value, this.props.propertyName);
     }
+
+    applyConstraints = ((value: number) => {
+        if (this.multipleOf) value = Math.round(value / this.multipleOf) * this.multipleOf;
+        if (this.range) value = Math.max(Math.min(value, this.range.max), this.range.min);
+
+        return value;
+    }).bind(this);
 
     onMouseMove = ((event: MouseEvent) => {
         if (this.state.mode === "dragging_start") {
@@ -60,14 +76,17 @@ export default class NodeFieldNumber extends Component {
         const target = this.inputRef.current!;
         const { width } = target.getBoundingClientRect();
 
+        const minSensitivity = this.integer ? 10 : 1;
+
         let increaseBy;
         if (this.range) {
             increaseBy = (this.range.max - this.range.min) * (event.movementX / width);
         } else {
-            increaseBy = Math.max(Math.abs(this.state.value), 1) * (event.movementX / width);
+            increaseBy = Math.max(Math.abs(this.state.value), minSensitivity) * (event.movementX / width);
         }
 
-        const value = this.state.value + increaseBy;
+        let value = this.state.value + increaseBy;
+        if (this.range) value = Math.max(Math.min(value, this.range.max), this.range.min);
 
         this.setState({ value });
     }).bind(this);
@@ -76,7 +95,7 @@ export default class NodeFieldNumber extends Component {
         if (this.state.mode === "dragging_start") this.setState({ mode: "textbox" });
         else if (this.state.mode === "dragging") {
             this.setState({ mode: "draggable" });
-            this.props.onChange?.(this.state.value, this.props.propertyName);
+            this.props.onChange?.(this.applyConstraints(this.state.value), this.props.propertyName);
         }
     }).bind(this);
 
@@ -87,6 +106,8 @@ export default class NodeFieldNumber extends Component {
             // Don't change the value if the input is invalid
             value = this.state.value;
         }
+
+        value = this.applyConstraints(value);
 
         // Clear the textbox's value
         target.value = "";
@@ -110,14 +131,14 @@ export default class NodeFieldNumber extends Component {
 
     render() {
         if (this.state.mode === "textbox") {
-            this.inputRef.current!.value = this.state.value.toString();
+            this.inputRef.current!.value = this.applyConstraints(this.state.value).toString();
         }
 
         return (
             <div className={classNames("node-field node-field-number form-control", this.state.mode)}>
                 {this.state.mode !== "textbox" ? (<>
                     <span className="node-field-label">{this.label}</span>
-                    <span className="node-field-label text-right">{this.state.value.toFixed(3)}</span>
+                    <span className="node-field-label text-right">{this.applyConstraints(this.state.value).toFixed(this.integer ? 0 : 3)}</span>
                 </>) : null}
                 <input
                     ref={this.inputRef}
