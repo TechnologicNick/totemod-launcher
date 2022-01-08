@@ -28,6 +28,18 @@
     border: 0px;
 }
 
+.node-field-progressbar {
+    position: absolute;
+    height: 100%;
+    pointer-events: none;
+    border-radius: var(--base-border-radius);
+    background-color: rgba($color: black, $alpha: 0.2);
+}
+
+.dark-mode .node-field-progressbar {
+    background-color: rgba(24, 144, 255, 0.75);
+}
+
 .node-field-number:not(.textbox) .node-field-input {
     cursor: ew-resize;
 }

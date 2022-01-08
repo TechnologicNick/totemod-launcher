@@ -137,6 +137,11 @@ export default class NodeFieldNumber extends Component {
         return (
             <div className={classNames("node-field node-field-number form-control", this.state.mode)}>
                 {this.state.mode !== "textbox" ? (<>
+                    {this.range ? (
+                        <div className="node-field-progressbar" style={{
+                            width: `${(this.state.value - this.range.min) / (this.range.max - this.range.min) * 100}%`,
+                        }}/>
+                    ) : null}
                     <span className="node-field-label">{this.label}</span>
                     <span className="node-field-label text-right">{this.applyConstraints(this.state.value).toFixed(this.integer ? 0 : 3)}</span>
                 </>) : null}
