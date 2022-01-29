@@ -70,10 +70,20 @@
     .node-field-label {
         padding-left: 2.5rem;
     }
+
+    .node-field-group-header-right {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 60%;
+        pointer-events: none;
+        padding-inline: 1rem;
+    }
 }
 
 .dark-mode .node-field-group {
-    background-color: rgba($color: white, $alpha: 0.05);
+    background-color: rgba($color: white, $alpha: 0.025);
     border: 1px solid var(--dm-input-border-color);
 }
 
@@ -85,7 +95,7 @@
 .node-field-group .node-field-group-content {
     padding-left: var(--input-horizontal-padding);
     padding-right: var(--input-horizontal-padding);
-    padding-bottom: var(--input-horizontal-padding);
+    padding-bottom: calc(var(--input-horizontal-padding) / 2);
 }
 
 .node-field-group[open] .collapse-caret {
