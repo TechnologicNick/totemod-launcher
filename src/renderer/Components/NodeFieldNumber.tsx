@@ -7,6 +7,7 @@ import './NodeField.scss';
 
 export type NodeFieldNumberProps = NodeFieldProps<number> & {
     isInteger?: boolean;
+    onIntermediateChange?: (value: number, propertyName: string) => number | void;
 }
 
 export default class NodeFieldNumber extends Component {
@@ -88,6 +89,7 @@ export default class NodeFieldNumber extends Component {
         let value = this.state.value + increaseBy;
         if (this.range) value = Math.max(Math.min(value, this.range.max), this.range.min);
 
+        value = this.props.onIntermediateChange?.(value, this.props.propertyName) ?? value;
         this.setState({ value });
     }).bind(this);
 
@@ -117,6 +119,16 @@ export default class NodeFieldNumber extends Component {
             value,
         });
         this.props.onChange?.(value, this.props.propertyName);
+    }
+
+    onInput(event: KeyboardEvent) {
+        if (!this.props.onIntermediateChange) return;
+
+        const target = event.target as HTMLInputElement;
+        let value = parseFloat(target.value);
+        if (isNaN(value)) return;
+
+        this.props.onIntermediateChange(value, this.props.propertyName);
     }
 
     componentDidMount() {
@@ -153,6 +165,7 @@ export default class NodeFieldNumber extends Component {
                     onMouseDown={() => { if (this.state.mode === "draggable") this.setState({ mode: "dragging_start" }); }}
                     onBlur={this.onFinishTyping.bind(this)}
                     onKeyPress={(event: KeyboardEvent) => { if (event.key === "Enter") this.onFinishTyping(event); }}
+                    onInput={(event) => this.onInput(event as KeyboardEvent<HTMLInputElement>)}
                 />
             </div>
         )

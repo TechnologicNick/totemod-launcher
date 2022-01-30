@@ -11,7 +11,6 @@ const NodeFieldVector = (props: NodeFieldProps<object>) => {
 
     const pointer = `${props.definition}/properties/${props.propertyName}`;
     const base = expandRefOnce(props.schema, pointer);
-    console.log(base);
     if (!base.hasOwnProperty("$ref"))
         throw `Property "${pointer}" has no $ref property! Only references to definitions are supported.`;
 
